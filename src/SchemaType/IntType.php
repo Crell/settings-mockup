@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Crell\SettingsPrototype\SchemaType;
 
+use Crell\SettingsPrototype\Validator\MaxValueValidator;
 use Crell\SettingsPrototype\Validator\MinValueValidator;
 use Crell\SettingsPrototype\Widgets\NumberField;
 use Crell\SettingsPrototype\Widgets\Widget;

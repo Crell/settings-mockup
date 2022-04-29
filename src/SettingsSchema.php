@@ -33,5 +33,6 @@ class SettingsSchema
         if ($def = $this->getDefinition($key)) {
             return array_filter(array_map(static fn(Validator $v) => $v->validate(($value)), $def->validators));
         }
+        return [];
     }
 }

@@ -33,7 +33,7 @@ class SettingDefinition
         public SchemaType $type,
         public mixed $default,
     ) {
-        $this->Form = new FormField();
+        $this->form = new FormField();
         // The main purpose of a type class is to provide a default widget
         // and validators.  These can both be overridden/added to, though.
         $this->widget = $type->defaultWidget();

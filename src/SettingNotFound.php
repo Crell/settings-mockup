@@ -15,7 +15,7 @@ class SettingNotFound extends \InvalidArgumentException
         $new->key = $key;
         $new->pageId = $pageId;
 
-        $new->message = sprintf('Settings key %s not found in the context of page $d', $key, $pageId);
+        $new->message = sprintf('Settings key %s not found in the context of page %d', $key, $pageId);
 
         return $new;
     }

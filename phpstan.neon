@@ -3,3 +3,10 @@ parameters:
 	paths:
 		- src
 		- tests
+	ignoreErrors:
+		#- '#Match expression does not handle remaining value#'
+		- '#has an uninitialized readonly property (.*). Assign it in the constructor.#'
+		- '#Readonly property (.*) is assigned outside of the constructor.#'
+		- '#Method (.*) has parameter (.*) with no value type specified in iterable type array.#'
+		- '#Method (.*) return type has no value type specified in iterable type array.#'
+		- '#Property (.*) type has no value type specified in iterable type array.#'
