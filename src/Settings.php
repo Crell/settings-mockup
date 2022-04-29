@@ -27,9 +27,6 @@ class Settings
             ?? $this->getSettingFromGlobal($key)
             ?? $this->getSettingFromDefaults($key)
             ?? throw SettingNotFound::create($key, $pageId);
-
-        //return $this->pageSettings[$pageId][$key] ??= $this->getSettingsForPage()
-
     }
 
     private function getSettingFromGlobal(string $key): mixed
