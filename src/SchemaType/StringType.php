@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Crell\SettingsPrototype\SchemaType;
 
+use Crell\SettingsPrototype\Validator\RegexValidator;
 use Crell\SettingsPrototype\Widgets\TextField;
 use Crell\SettingsPrototype\Validator\TypeValidator;
 use Crell\SettingsPrototype\Widgets\Widget;
@@ -29,10 +30,11 @@ class StringType implements SchemaType
         if (!is_null($this->maxLength)) {
             $ret[] = new MaxLengthValidator($this->maxLength);
         }
+*/
         if (!is_null($this->regex)) {
             $ret[] = new RegexValidator($this->regex);
         }
-*/
+
         return $ret;
     }
 
