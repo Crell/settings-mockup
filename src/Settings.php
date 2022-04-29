@@ -4,17 +4,20 @@ declare(strict_types=1);
 
 namespace Crell\SettingsPrototype;
 
+use Crell\SettingsPrototype\Validator\ValidationErrors;
+
 class Settings
 {
     // @phpstan-ignore-next-line
     private array $pageSettings = [];
 
-    // @phpstan-ignore-next-line
     public function __construct(
+        private SettingsSchema $schema,
+        private int $currentPageID,
         // @phpstan-ignore-next-line
         private array $mockPageData,
-        private int $currentPageID,
-    ) {}
+    ) {
+    }
 
     public function get(string $key, ?int $pageId = null): mixed
     {
@@ -36,12 +39,12 @@ class Settings
 
     private function getSettingFromDefaults(string $key): mixed
     {
-        return null;
+        return $this->schema->getDefinition($key)?->default;
     }
 
     private function getSettingForPage(string $key, int $pageId): mixed
     {
-        while ($pageId && !isset($this->pageSettings[$pageId])) {
+        while ($pageId && !isset($this->pageSettings[$pageId][$key])) {
             $this->pageSettings[$pageId] ??= $this->loadSettingsForPage($pageId);
             if (!isset($this->pageSettings[$pageId][$key])) {
                 $pageId = $this->getParentPageId($pageId);
@@ -68,5 +71,24 @@ class Settings
     private function getCurrentPageId(): int
     {
         return $this->currentPageID;
+    }
+
+    public function set(int $pageId, string $key, int|float|string|array $value): void
+    {
+        $this->setMultiple($pageId, [$key => $value]);
+    }
+
+    public function setMultiple(int $pageId, array $values): void
+    {
+        foreach ($values as $k => $v) {
+            if ($errors = $this->schema->validate($k, $v)) {
+                throw ValidationErrors::create($k, $errors);
+            }
+        }
+
+        // @todo Make this real.
+        foreach ($values as $k => $v) {
+            $this->mockPageData[$pageId]['settings'][$k] = $v;
+        }
     }
 }
