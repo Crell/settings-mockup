@@ -43,4 +43,22 @@ class StuffTest extends TestCase
 
         static::assertEquals(5, $val);
     }
+
+    /**
+     * @test
+     */
+    public function missing_value_throws(): void
+    {
+        $this->expectException(SettingNotFound::class);
+
+        $mockData = [
+            1 => ['settings' => ['foo.bar.baz' => 5], 'parent' => 0],
+            2 => ['settings' => [], 'parent' => 1],
+            3 => ['settings' => [], 'parent' => 2],
+        ];
+
+        $s = new Settings($mockData, 3);
+
+        $val = $s->get('missing.value');
+    }
 }

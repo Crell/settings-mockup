@@ -22,7 +22,8 @@ class Settings
 
         return $this->getSettingForPage($key, $pageId)
             ?? $this->getSettingFromGlobal($key)
-            ?? $this->getSettingFromDefaults($key);
+            ?? $this->getSettingFromDefaults($key)
+            ?? throw SettingNotFound::create($key, $pageId);
 
         //return $this->pageSettings[$pageId][$key] ??= $this->getSettingsForPage()
 
