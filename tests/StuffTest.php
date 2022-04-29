@@ -6,6 +6,8 @@ namespace Crell\SettingsPrototype;
 
 use Crell\SettingsPrototype\SchemaType\IntType;
 use Crell\SettingsPrototype\SchemaType\StringType;
+use Crell\SettingsPrototype\Validator\IncorrectType;
+use Crell\SettingsPrototype\Validator\ValidationErrors;
 use PHPUnit\Framework\TestCase;
 
 class StuffTest extends TestCase
@@ -73,7 +75,7 @@ class StuffTest extends TestCase
     /**
      * @test
      */
-    public function schema(): void
+    public function schema_update(): void
     {
         $mockData = [
             1 => ['settings' => ['foo.bar.baz' => 5], 'parent' => 0],
@@ -97,5 +99,34 @@ class StuffTest extends TestCase
         self::assertEquals(6, $s->get('foo.bar.baz', 2));
         self::assertEquals(5, $s->get('foo.bar.baz', 1));
         self::assertEquals(6, $s->get('foo.bar.baz', 3));
+    }
+
+    /**
+     * @test
+     */
+    public function invalid_schema_update(): void
+    {
+        $mockData = [
+            1 => ['settings' => ['foo.bar.baz' => 5], 'parent' => 0],
+            2 => ['settings' => [], 'parent' => 1],
+            3 => ['settings' => [], 'parent' => 2],
+        ];
+
+        $schema = new SettingsSchema();
+
+        $schema->newDefinition('foo.bar.baz', new IntType(), 1);
+        $schema->newDefinition('beep.boop', new StringType(), 'not set');
+
+        $s = new Settings($schema, 3, $mockData);
+
+        try {
+            $s->set(2, 'beep.boop', 3.14);
+        } catch (ValidationErrors $e) {
+            self::assertCount(1, $e->errors);
+            self::assertInstanceOf(IncorrectType::class, $e->errors[0]);
+            return;
+        }
+
+        self::fail('Exception not thrown');
     }
 }
