@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Crell\SettingsPrototype\SchemaType;
 
+use Crell\SettingsPrototype\Hydratable;
 use Crell\SettingsPrototype\Validator\RegexValidator;
 use Crell\SettingsPrototype\Widgets\TextField;
 use Crell\SettingsPrototype\Validator\TypeValidator;
@@ -11,6 +12,8 @@ use Crell\SettingsPrototype\Widgets\Widget;
 
 class StringType implements SchemaType
 {
+    use Hydratable;
+
     public function __construct(
         public ?int $minLength = null,
         public ?int $maxLength = null,

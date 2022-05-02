@@ -19,6 +19,8 @@ use Crell\SettingsPrototype\Widgets\Widget;
  */
 class SettingDefinition
 {
+    use Hydratable;
+
     public FormField $form;
 
     public Widget $widget;

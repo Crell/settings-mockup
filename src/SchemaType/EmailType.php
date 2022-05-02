@@ -4,13 +4,15 @@ declare(strict_types=1);
 
 namespace Crell\SettingsPrototype\SchemaType;
 
-use Crell\SettingsPrototype\EmailValidator;
+use Crell\SettingsPrototype\Hydratable;
 use Crell\SettingsPrototype\Widgets\TextField;
 use Crell\SettingsPrototype\Validator\TypeValidator;
 use Crell\SettingsPrototype\Widgets\Widget;
 
 class EmailType implements SchemaType
 {
+    use Hydratable;
+
     public function defaultValidators(): array
     {
         return [

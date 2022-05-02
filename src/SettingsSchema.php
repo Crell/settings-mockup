@@ -10,6 +10,8 @@ use Crell\SettingsPrototype\Validator\Validator;
 
 class SettingsSchema
 {
+    use Hydratable;
+
     /**
      * @var SettingDefinition[]
      */

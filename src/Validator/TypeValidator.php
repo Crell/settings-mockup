@@ -4,8 +4,12 @@ declare(strict_types=1);
 
 namespace Crell\SettingsPrototype\Validator;
 
+use Crell\SettingsPrototype\Hydratable;
+
 class TypeValidator implements Validator
 {
+    use Hydratable;
+
     public function __construct(private string $type)
     {
     }
