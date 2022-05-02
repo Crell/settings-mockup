@@ -10,7 +10,7 @@ use Crell\SettingsPrototype\Validator\IncorrectType;
 use Crell\SettingsPrototype\Validator\ValidationErrors;
 use PHPUnit\Framework\TestCase;
 
-class StuffTest extends TestCase
+class GetSetTest extends TestCase
 {
     /**
      * @test
@@ -104,7 +104,7 @@ class StuffTest extends TestCase
     /**
      * @test
      */
-    public function invalid_schema_update(): void
+    public function update_fails_schema_checks(): void
     {
         $mockData = [
             1 => ['settings' => ['foo.bar.baz' => 5], 'parent' => 0],
