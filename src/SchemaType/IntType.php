@@ -7,6 +7,7 @@ namespace Crell\SettingsPrototype\SchemaType;
 use Crell\SettingsPrototype\Hydratable;
 use Crell\SettingsPrototype\Validator\MaxValueValidator;
 use Crell\SettingsPrototype\Validator\MinValueValidator;
+use Crell\SettingsPrototype\Validator\TypeValidator;
 use Crell\SettingsPrototype\Widgets\NumberField;
 use Crell\SettingsPrototype\Widgets\Widget;
 
@@ -24,6 +25,8 @@ class IntType implements SchemaType
     public function defaultValidators(): array
     {
         $ret = [];
+
+        $ret[] = new TypeValidator('int');
 
         if (!is_null($this->minValue)) {
             $ret[] = new MinValueValidator($this->minValue);

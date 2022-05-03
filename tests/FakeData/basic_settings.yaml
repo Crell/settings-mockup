@@ -1,0 +1,22 @@
+'foo.bar.baz':
+  type:
+    class: Crell\SettingsPrototype\SchemaType\IntType
+  default: 1
+  form:
+    label: Foo Bar's Baz
+    description: Stuff here
+  validators:
+    - { class: Crell\SettingsPrototype\Validator\EvenOdd, even: false }
+'beep.boop':
+  type:
+    class: Crell\SettingsPrototype\SchemaType\StringType
+  default: 'not set'
+  form:
+    label: Beep beep
+    description: Roadrunner?
+  widget:
+    class: Crell\SettingsPrototype\Widgets\SelectWidget
+    values:
+      a: A
+      b: B
+      c: C

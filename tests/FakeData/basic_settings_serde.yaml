@@ -1,0 +1,15 @@
+definitions:
+  'foo.bar.baz':
+    type:
+      class: Crell\SettingsPrototype\SchemaType\IntType
+    default: 1
+    form:
+      label: Foo Bar's Baz
+      description: Stuff here
+  'beep.boop':
+    type:
+      class: Crell\SettingsPrototype\SchemaType\StringType
+    default: 'not set'
+    form:
+      label: Beep beep
+      description: Roadrunner?

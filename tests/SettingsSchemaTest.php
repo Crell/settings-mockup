@@ -4,9 +4,14 @@ declare(strict_types=1);
 
 namespace Crell\SettingsPrototype;
 
+use Crell\Serde\SerdeCommon;
 use Crell\SettingsPrototype\FakeServices\MockSchemaData;
 use Crell\SettingsPrototype\SchemaType\IntType;
 use Crell\SettingsPrototype\SchemaType\StringType;
+use Crell\SettingsPrototype\Validator\EvenOdd;
+use Crell\SettingsPrototype\Validator\TypeValidator;
+use Crell\SettingsPrototype\Widgets\NumberField;
+use Crell\SettingsPrototype\Widgets\TextField;
 use PHPUnit\Framework\TestCase;
 
 class SettingsSchemaTest extends TestCase
@@ -51,13 +56,59 @@ class SettingsSchemaTest extends TestCase
     /**
      * @test
      */
-    public function passes(): void
+    public function compiler_passes_work(): void
     {
         $schema = new SettingsSchema();
 
         $schema->addSchema(new MockSchemaData());
 
         self::assertEquals(1, $schema->getDefinition('foo.bar.baz')->default);
+        self::assertEquals('not set', $schema->getDefinition('beep.boop')->default);
+    }
+
+    /**
+     * @test
+     */
+    public function reading_yaml_files_raw_works(): void
+    {
+        $schema = new SettingsSchema();
+
+        $schema->addSchema(new RawYamlFilePass(__DIR__ . '/FakeData/basic_settings.yaml'));
+
+        $foo = $schema->getDefinition('foo.bar.baz');
+        self::assertEquals(1, $foo->default);
+        self::assertEquals('Foo Bar\'s Baz', $foo->form->label);
+        self::assertEquals('Stuff here', $foo->form->description);
+        self::assertEquals('', $foo->form->help);
+        self::assertEquals('', $foo->form->icon);
+        self::assertCount(2, $foo->validators);
+        self::assertInstanceOf(TypeValidator::class, $foo->validators[0]);
+        self::assertInstanceOf(EvenOdd::class, $foo->validators[1]);
+        self::assertInstanceOf(NumberField::class, $foo->widget);
+
+        $beep = $schema->getDefinition('beep.boop');
+        self::assertEquals('not set', $beep->default);
+        self::assertEquals('Beep beep', $beep->form->label);
+        self::assertEquals('Roadrunner?', $beep->form->description);
+        self::assertEquals('', $beep->form->help);
+        self::assertEquals('', $beep->form->icon);
+        self::assertCount(1, $beep->validators);
+        self::assertInstanceOf(TypeValidator::class, $beep->validators[0]);
+        self::assertInstanceOf(TextField::class, $beep->widget);
+    }
+
+    /**
+     * @test-disabled
+     */
+    public function reading_yaml_files_with_serde_works(): void
+    {
+        $schema = new SettingsSchema();
+
+        $schema->addSchema(new SerdeYamlFilePass(__DIR__ . '/FakeData/basic_settings_serde.yaml', new SerdeCommon()));
+
+        self::assertEquals(1, $schema->getDefinition('foo.bar.baz')->default);
+        self::assertCount(1, $schema->getDefinition('foo.bar.baz')->validators);
+        self::assertInstanceOf(TypeValidator::class, $schema->getDefinition('foo.bar.baz')->validators[0]);
         self::assertEquals('not set', $schema->getDefinition('beep.boop')->default);
     }
 }

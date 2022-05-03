@@ -10,7 +10,7 @@ class TypeValidator implements Validator
 {
     use Hydratable;
 
-    public function __construct(private string $type)
+    public function __construct(private readonly string $type)
     {
     }
 
