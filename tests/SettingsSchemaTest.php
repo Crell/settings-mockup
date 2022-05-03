@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Crell\SettingsPrototype;
 
+use Crell\SettingsPrototype\FakeServices\MockSchemaData;
 use Crell\SettingsPrototype\SchemaType\IntType;
 use Crell\SettingsPrototype\SchemaType\StringType;
 use PHPUnit\Framework\TestCase;
@@ -45,5 +46,18 @@ class SettingsSchemaTest extends TestCase
         // Now assert various things on $generated as appropriate.
         $this->assertEquals($schema->getDefinition('foo.bar.baz')->default, $generated->getDefinition('foo.bar.baz')->default);
         $this->assertEquals($schema->getDefinition('beep.boop')->default, $generated->getDefinition('beep.boop')->default);
+    }
+
+    /**
+     * @test
+     */
+    public function passes(): void
+    {
+        $schema = new SettingsSchema();
+
+        $schema->addSchema(new MockSchemaData());
+
+        self::assertEquals(1, $schema->getDefinition('foo.bar.baz')->default);
+        self::assertEquals('not set', $schema->getDefinition('beep.boop')->default);
     }
 }

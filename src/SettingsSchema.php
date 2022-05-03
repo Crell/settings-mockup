@@ -37,4 +37,11 @@ class SettingsSchema
         }
         return [];
     }
+
+    public function addSchema(callable $pass): static
+    {
+        $pass($this);
+
+        return $this;
+    }
 }
