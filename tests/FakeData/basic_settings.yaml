@@ -20,3 +20,6 @@
       a: A
       b: B
       c: C
+
+minimalist.definition:
+  default: 'The least I can do'

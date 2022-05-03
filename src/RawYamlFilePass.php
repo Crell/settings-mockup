@@ -33,6 +33,10 @@ class RawYamlFilePass
                 throw new \InvalidArgumentException('Default must be specified');
             }
 
+            // @todo The default should also be validated against all validators
+            // at this point. Maybe we need to parse the validators first and save them?
+            // Could get a bit ugly.
+
             $newDef = $schema->newDefinition(
                 name: $key,
                 type: new $def['type']['class'](...$typeArgs),

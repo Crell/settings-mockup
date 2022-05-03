@@ -75,26 +75,36 @@ class SettingsSchemaTest extends TestCase
 
         $schema->addSchema(new RawYamlFilePass(__DIR__ . '/FakeData/basic_settings.yaml'));
 
-        $foo = $schema->getDefinition('foo.bar.baz');
-        self::assertEquals(1, $foo->default);
-        self::assertEquals('Foo Bar\'s Baz', $foo->form->label);
-        self::assertEquals('Stuff here', $foo->form->description);
-        self::assertEquals('', $foo->form->help);
-        self::assertEquals('', $foo->form->icon);
-        self::assertCount(2, $foo->validators);
-        self::assertInstanceOf(TypeValidator::class, $foo->validators[0]);
-        self::assertInstanceOf(EvenOdd::class, $foo->validators[1]);
-        self::assertInstanceOf(NumberField::class, $foo->widget);
+        $def = $schema->getDefinition('foo.bar.baz');
+        self::assertEquals(1, $def->default);
+        self::assertEquals('Foo Bar\'s Baz', $def->form->label);
+        self::assertEquals('Stuff here', $def->form->description);
+        self::assertEquals('', $def->form->help);
+        self::assertEquals('', $def->form->icon);
+        self::assertCount(2, $def->validators);
+        self::assertInstanceOf(TypeValidator::class, $def->validators[0]);
+        self::assertInstanceOf(EvenOdd::class, $def->validators[1]);
+        self::assertInstanceOf(NumberField::class, $def->widget);
 
-        $beep = $schema->getDefinition('beep.boop');
-        self::assertEquals('not set', $beep->default);
-        self::assertEquals('Beep beep', $beep->form->label);
-        self::assertEquals('Roadrunner?', $beep->form->description);
-        self::assertEquals('', $beep->form->help);
-        self::assertEquals('', $beep->form->icon);
-        self::assertCount(1, $beep->validators);
-        self::assertInstanceOf(TypeValidator::class, $beep->validators[0]);
-        self::assertInstanceOf(TextField::class, $beep->widget);
+        $def = $schema->getDefinition('beep.boop');
+        self::assertEquals('not set', $def->default);
+        self::assertEquals('Beep beep', $def->form->label);
+        self::assertEquals('Roadrunner?', $def->form->description);
+        self::assertEquals('', $def->form->help);
+        self::assertEquals('', $def->form->icon);
+        self::assertCount(1, $def->validators);
+        self::assertInstanceOf(TypeValidator::class, $def->validators[0]);
+        self::assertInstanceOf(TextField::class, $def->widget);
+
+        $def = $schema->getDefinition('minimalist.definition');
+        self::assertEquals('The least I can do', $def->default);
+        self::assertEquals('', $def->form->label);
+        self::assertEquals('', $def->form->description);
+        self::assertEquals('', $def->form->help);
+        self::assertEquals('', $def->form->icon);
+        self::assertCount(1, $def->validators);
+        self::assertInstanceOf(TypeValidator::class, $def->validators[0]);
+        self::assertInstanceOf(TextField::class, $def->widget);
     }
 
     /**
