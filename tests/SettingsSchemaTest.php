@@ -108,6 +108,20 @@ class SettingsSchemaTest extends TestCase
     }
 
     /**
+     * @test
+     */
+    public function reading_yaml_files_raw_rejects_invalid_default(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        $schema = new SettingsSchema();
+
+        $schema->addSchema(new RawYamlFilePass(__DIR__ . '/FakeData/invalid_default.yaml'));
+
+        $def = $schema->getDefinition('bad.value');
+    }
+
+    /**
      * @test-disabled
      */
     public function reading_yaml_files_with_serde_works(): void

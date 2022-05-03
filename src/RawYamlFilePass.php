@@ -33,10 +33,6 @@ class RawYamlFilePass
                 throw new \InvalidArgumentException('Default must be specified');
             }
 
-            // @todo The default should also be validated against all validators
-            // at this point. Maybe we need to parse the validators first and save them?
-            // Could get a bit ugly.
-
             $newDef = $schema->newDefinition(
                 name: $key,
                 type: new $def['type']['class'](...$typeArgs),
@@ -62,6 +58,13 @@ class RawYamlFilePass
                 $validatorArgs = $validator;
                 unset($validatorArgs['class']);
                 $newDef->validators[] = new $validator['class'](...$validatorArgs);
+            }
+
+            // Ensure that the default is valid.  If it's not, don't
+            // even allow it in the schema.
+            if ($schema->validate($key, $newDef->default)) {
+                // @todo Real error handling.
+                throw new \InvalidArgumentException('The default is not valid according to its own rules.');
             }
         };
     }
