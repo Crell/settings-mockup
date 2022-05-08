@@ -1,0 +1,4 @@
+bad.value:
+  type:
+    class: Crell\SettingsPrototype\SchemaType\IntType
+  default: 'nein'
