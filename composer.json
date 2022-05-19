@@ -22,5 +22,10 @@
             "Crell\\SettingsPrototype\\": "tests",
             "Crell\\SettingsPrototype\\Benchmarks\\": "benchmarks"
         }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
     }
 }
