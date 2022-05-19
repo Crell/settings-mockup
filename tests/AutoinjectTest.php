@@ -76,21 +76,16 @@ class AutoinjectTest extends TestCase
     {
         // ReflectionParameter is not technically a child of Reflector, due to PHP being buggy. It is, though, and this code works.
         // @phpstan-ignore-next-line
-        $container->registerAttributeForAutoconfiguration(Setting::class, static function (ChildDefinition $definition, Setting $attribute, \ReflectionParameter $reflector): void {
-            $settingDef = new Definition();
-            $settingDef->setFactory([new Reference(Settings::class), 'get']);
-            $settingDef->addArgument($attribute->name);
+        $container->registerAttributeForAutoconfiguration(Setting::class, $this->autoconfigureSettingsAttribute(...));
+    }
 
-            $definition->addArgument($settingDef);
+    protected function autoconfigureSettingsAttribute(ChildDefinition $definition, Setting $attribute, \ReflectionParameter $reflector): void
+    {
+        $settingDef = new Definition();
+        $settingDef->setFactory([new Reference(Settings::class), 'get']);
+        $settingDef->addArgument($attribute->name);
 
-            /*
-            $resolverDefinition = new ChildDefinition(Settings::class);
-            $resolverDefinition->setFactory([new Reference(Settings::class), 'get']);
-            $resolverDefinition->addArgument($attribute->name);
-
-            $definition->addArgument($resolverDefinition);
-            */
-        });
+        $definition->addArgument($settingDef);
     }
 
     /**
