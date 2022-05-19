@@ -2,7 +2,7 @@
     "name": "crell/settings-prototype",
     "require": {
         "php": "~8.1",
-        "symfony/dependency-injection": "^6.0",
+        "symfony/dependency-injection": "^5.4",
         "symfony/yaml": "^6.0",
         "crell/serde": "^0.4.0"
     },
