@@ -15,7 +15,7 @@
     label: Beep beep
     description: Roadrunner?
   widget:
-    class: Crell\SettingsPrototype\Widgets\SelectWidget
+    class: Crell\SettingsPrototype\Widgets\SelectField
     values:
       a: A
       b: B

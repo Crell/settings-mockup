@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Crell\SettingsPrototype\SchemaType;
 
 use Crell\SettingsPrototype\Hydratable;
+use Crell\SettingsPrototype\Validator\AllowedValues;
 use Crell\SettingsPrototype\Validator\RegexValidator;
 use Crell\SettingsPrototype\Widgets\TextField;
 use Crell\SettingsPrototype\Validator\TypeValidator;
@@ -18,6 +19,7 @@ class StringType implements SchemaType
         public ?int $minLength = null,
         public ?int $maxLength = null,
         public ?string $regex = null,
+        public ?array $allowedValues = null,
     ) {
     }
 
@@ -26,6 +28,11 @@ class StringType implements SchemaType
         $ret = [];
 
         $ret[] = new TypeValidator('string');
+
+        if (!is_null($this->allowedValues)) {
+            $ret[] = new AllowedValues($this->allowedValues);
+        }
+
 /*
         if (!is_null($this->minLength)) {
             $ret[] = new MinLengthValidator($this->minLength);

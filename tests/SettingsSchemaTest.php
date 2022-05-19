@@ -7,8 +7,12 @@ namespace Crell\SettingsPrototype;
 use Crell\SettingsPrototype\FakeServices\MockSchemaData;
 use Crell\SettingsPrototype\SchemaType\IntType;
 use Crell\SettingsPrototype\SchemaType\StringType;
+use Crell\SettingsPrototype\Validator\EmailValidator;
 use Crell\SettingsPrototype\Validator\EvenOdd;
+use Crell\SettingsPrototype\Validator\ListTypeValidator;
+use Crell\SettingsPrototype\Validator\MinValueValidator;
 use Crell\SettingsPrototype\Validator\TypeValidator;
+use Crell\SettingsPrototype\Widgets\MultivalueTextField;
 use Crell\SettingsPrototype\Widgets\NumberField;
 use Crell\SettingsPrototype\Widgets\SelectField;
 use Crell\SettingsPrototype\Widgets\TextField;
@@ -105,6 +109,40 @@ class SettingsSchemaTest extends TestCase
         self::assertCount(1, $def->validators);
         self::assertInstanceOf(TypeValidator::class, $def->validators[0]);
         self::assertInstanceOf(TextField::class, $def->widget);
+    }
+
+    /**
+     * @test
+     */
+    public function felogin_sample_parses_correctly(): void
+    {
+        $schema = new SettingsSchema();
+
+        $schema->addSchema(new RawYamlFilePass(__DIR__ . '/FakeData/felogin.yaml'));
+
+        $def = $schema->getDefinition('styles.content.loginform.pid');
+        self::assertEquals('0', $def->default);
+        self::assertEquals('User Storage Page', $def->form->label);
+        self::assertInstanceOf(TypeValidator::class, $def->validators[0]);
+
+        $def = $schema->getDefinition('styles.content.loginform.emailFrom');
+        self::assertEquals('', $def->default);
+        self::assertEquals('Email Sender Address', $def->form->label);
+        self::assertInstanceOf(TypeValidator::class, $def->validators[0]);
+        self::assertInstanceOf(EmailValidator::class, $def->validators[1]);
+
+        $def = $schema->getDefinition('styles.content.loginform.redirectPageLogin');
+        self::assertEquals(0, $def->default);
+        self::assertEquals('After Successful Login Redirect to Page', $def->form->label);
+        self::assertInstanceOf(TypeValidator::class, $def->validators[0]);
+        self::assertInstanceOf(MinValueValidator::class, $def->validators[1]);
+
+        $def = $schema->getDefinition('styles.content.loginform.domains');
+        self::assertEquals([], $def->default);
+        self::assertEquals('Allowed Referrer-Redirect-Domains', $def->form->label);
+        self::assertInstanceOf(ListTypeValidator::class, $def->validators[0]);
+        self::assertInstanceOf(MultivalueTextField::class, $def->widget);
+
     }
 
     /**

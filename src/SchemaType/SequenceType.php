@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace Crell\SettingsPrototype\SchemaType;
 
 use Crell\SettingsPrototype\Hydratable;
-use Crell\SettingsPrototype\Widgets\TextField;
+use Crell\SettingsPrototype\Validator\ListTypeValidator;
+use Crell\SettingsPrototype\Widgets\MultivalueTextField;
 use Crell\SettingsPrototype\Widgets\Widget;
 
 class SequenceType implements SchemaType
@@ -14,17 +15,17 @@ class SequenceType implements SchemaType
 
     // @todo Do something with the argument.
     // @phpstan-ignore-next-line
-    public function __construct(string $valueType = 'string')
+    public function __construct(public string $valueType = 'string')
     {
     }
 
     public function defaultWidget(): Widget
     {
-        return new TextField();
+        return new MultivalueTextField();
     }
 
     public function defaultValidators(): array
     {
-        return [];
+        return [new ListTypeValidator($this->valueType)];
     }
 }

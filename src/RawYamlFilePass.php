@@ -63,8 +63,7 @@ class RawYamlFilePass
             // Ensure that the default is valid.  If it's not, don't
             // even allow it in the schema.
             if ($schema->validate($key, $newDef->default)) {
-                // @todo Real error handling.
-                throw new \InvalidArgumentException('The default is not valid according to its own rules.');
+                throw DefaultValueNotValid::create($key, $newDef->default);
             }
         };
     }
