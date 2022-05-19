@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Crell\SettingsPrototype;
 
-use Crell\Serde\SerdeCommon;
 use Crell\SettingsPrototype\FakeServices\MockSchemaData;
 use Crell\SettingsPrototype\SchemaType\IntType;
 use Crell\SettingsPrototype\SchemaType\StringType;
 use Crell\SettingsPrototype\Validator\EvenOdd;
 use Crell\SettingsPrototype\Validator\TypeValidator;
 use Crell\SettingsPrototype\Widgets\NumberField;
+use Crell\SettingsPrototype\Widgets\SelectWidget;
 use Crell\SettingsPrototype\Widgets\TextField;
 use PHPUnit\Framework\TestCase;
 
@@ -94,7 +94,7 @@ class SettingsSchemaTest extends TestCase
         self::assertEquals('', $def->form->icon);
         self::assertCount(1, $def->validators);
         self::assertInstanceOf(TypeValidator::class, $def->validators[0]);
-        self::assertInstanceOf(TextField::class, $def->widget);
+        self::assertInstanceOf(SelectWidget::class, $def->widget);
 
         $def = $schema->getDefinition('minimalist.definition');
         self::assertEquals('The least I can do', $def->default);
