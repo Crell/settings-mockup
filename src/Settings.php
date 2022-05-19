@@ -9,13 +9,13 @@ use Crell\SettingsPrototype\Validator\ValidationErrors;
 class Settings
 {
     // @phpstan-ignore-next-line
-    private array $pageSettings = [];
+    protected array $pageSettings = [];
 
     public function __construct(
-        private SettingsSchema $schema,
-        private int $currentPageID,
+        protected SettingsSchema $schema,
+        protected int $currentPageID,
         // @phpstan-ignore-next-line
-        private array $mockPageData,
+        protected array $mockPageData,
     ) {
     }
 
@@ -29,17 +29,17 @@ class Settings
             ?? throw SettingNotFound::create($key, $pageId);
     }
 
-    private function getSettingFromGlobal(string $key): mixed
+    protected function getSettingFromGlobal(string $key): mixed
     {
         return null;
     }
 
-    private function getSettingFromDefaults(string $key): mixed
+    protected function getSettingFromDefaults(string $key): mixed
     {
         return $this->schema->getDefinition($key)?->default;
     }
 
-    private function getSettingForPage(string $key, int $pageId): mixed
+    protected function getSettingForPage(string $key, int $pageId): mixed
     {
         while ($pageId && !isset($this->pageSettings[$pageId][$key])) {
             $this->pageSettings[$pageId] ??= $this->loadSettingsForPage($pageId);
@@ -52,20 +52,20 @@ class Settings
 
     // @todo Make this real.
     // @phpstan-ignore-next-line
-    private function loadSettingsForPage(int $pageId): array
+    protected function loadSettingsForPage(int $pageId): array
     {
         // Replace with something that reads from the DB.
         return $this->mockPageData[$pageId]['settings'];
     }
 
     // @todo Make this real.
-    private function getParentPageId(int $pageId): int
+    protected function getParentPageId(int $pageId): int
     {
         return $this->mockPageData[$pageId]['parent'];
     }
 
     // @todo Make this real.
-    private function getCurrentPageId(): int
+    protected function getCurrentPageId(): int
     {
         return $this->currentPageID;
     }
