@@ -6,7 +6,6 @@ namespace Crell\SettingsPrototype\SchemaType;
 
 use Crell\SettingsPrototype\Hydratable;
 use Crell\SettingsPrototype\Widgets\CheckboxesField;
-use Crell\SettingsPrototype\Widgets\TextField;
 use Crell\SettingsPrototype\Widgets\Widget;
 
 class MultiListType implements SchemaType

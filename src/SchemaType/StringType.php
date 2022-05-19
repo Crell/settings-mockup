@@ -7,8 +7,8 @@ namespace Crell\SettingsPrototype\SchemaType;
 use Crell\SettingsPrototype\Hydratable;
 use Crell\SettingsPrototype\Validator\AllowedValues;
 use Crell\SettingsPrototype\Validator\RegexValidator;
-use Crell\SettingsPrototype\Widgets\TextField;
 use Crell\SettingsPrototype\Validator\TypeValidator;
+use Crell\SettingsPrototype\Widgets\TextField;
 use Crell\SettingsPrototype\Widgets\Widget;
 
 class StringType implements SchemaType

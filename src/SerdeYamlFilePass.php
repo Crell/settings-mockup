@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Crell\SettingsPrototype;
 
 use Crell\Serde\Serde;
-use Symfony\Component\Yaml\Yaml;
 
 
 class SerdeYamlFilePass

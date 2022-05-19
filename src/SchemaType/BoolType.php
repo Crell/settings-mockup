@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Crell\SettingsPrototype\SchemaType;
 
 use Crell\SettingsPrototype\Hydratable;
-use Crell\SettingsPrototype\Widgets\CheckboxField;
 use Crell\SettingsPrototype\Validator\TypeValidator;
+use Crell\SettingsPrototype\Widgets\CheckboxField;
 use Crell\SettingsPrototype\Widgets\Widget;
 
 class BoolType implements SchemaType
