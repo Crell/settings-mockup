@@ -56,7 +56,7 @@ class SettingsSchemaTest extends TestCase
     /**
      * @test
      */
-    public function compiler_passes_work(): void
+    public function compiler_passes_register_correctly(): void
     {
         $schema = new SettingsSchema();
 
@@ -69,7 +69,7 @@ class SettingsSchemaTest extends TestCase
     /**
      * @test
      */
-    public function reading_yaml_files_raw_works(): void
+    public function reading_yaml_files_raw_parses_correctly(): void
     {
         $schema = new SettingsSchema();
 
