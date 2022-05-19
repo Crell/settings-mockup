@@ -10,7 +10,7 @@ use Crell\SettingsPrototype\SchemaType\StringType;
 use Crell\SettingsPrototype\Validator\EvenOdd;
 use Crell\SettingsPrototype\Validator\TypeValidator;
 use Crell\SettingsPrototype\Widgets\NumberField;
-use Crell\SettingsPrototype\Widgets\SelectWidget;
+use Crell\SettingsPrototype\Widgets\SelectField;
 use Crell\SettingsPrototype\Widgets\TextField;
 use PHPUnit\Framework\TestCase;
 
@@ -94,7 +94,7 @@ class SettingsSchemaTest extends TestCase
         self::assertEquals('', $def->form->icon);
         self::assertCount(1, $def->validators);
         self::assertInstanceOf(TypeValidator::class, $def->validators[0]);
-        self::assertInstanceOf(SelectWidget::class, $def->widget);
+        self::assertInstanceOf(SelectField::class, $def->widget);
 
         $def = $schema->getDefinition('minimalist.definition');
         self::assertEquals('The least I can do', $def->default);

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Crell\SettingsPrototype\Widgets;
 
-class SelectWidget implements Widget
+class SelectField implements Widget
 {
     /**
      * @param array<string, string> $values
