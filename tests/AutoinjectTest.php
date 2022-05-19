@@ -74,6 +74,8 @@ class AutoinjectTest extends TestCase
 
     protected function setupContainerAttribute(ContainerBuilder $container): void
     {
+        // ReflectionParameter is not technically a child of Reflector, due to PHP being buggy. It is, though, and this code works.
+        // @phpstan-ignore-next-line
         $container->registerAttributeForAutoconfiguration(Setting::class, static function (ChildDefinition $definition, Setting $attribute, \ReflectionParameter $reflector): void {
             $settingDef = new Definition();
             $settingDef->setFactory([new Reference(Settings::class), 'get']);

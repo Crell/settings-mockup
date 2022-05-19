@@ -12,6 +12,8 @@ class SequenceType implements SchemaType
 {
     use Hydratable;
 
+    // @todo Do something with the argument.
+    // @phpstan-ignore-next-line
     public function __construct(string $valueType = 'string')
     {
     }

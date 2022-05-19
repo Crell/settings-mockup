@@ -7,6 +7,7 @@ namespace Crell\SettingsPrototype;
 use Crell\Serde\Serde;
 use Symfony\Component\Yaml\Yaml;
 
+
 class SerdeYamlFilePass
 {
     public function __construct(private readonly string $filename, private readonly Serde $serde) {}

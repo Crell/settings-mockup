@@ -11,7 +11,6 @@ class ValidationErrors extends \InvalidArgumentException
 
     /**
      * @param ValidationError[] $errors
-     * @return static
      */
     public static function create(string $key, array $errors): self
     {

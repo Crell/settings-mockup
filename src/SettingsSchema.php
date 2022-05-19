@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace Crell\SettingsPrototype;
 
-use Crell\Serde\Attributes\DictionaryField;
-use Crell\Serde\Attributes\Field;
-use Crell\Serde\Attributes\SequenceField;
 use Crell\SettingsPrototype\SchemaType\SchemaType;
 use Crell\SettingsPrototype\Validator\ValidationError;
 use Crell\SettingsPrototype\Validator\Validator;
@@ -18,7 +15,6 @@ class SettingsSchema
     /**
      * @var SettingDefinition[]
      */
-    #[DictionaryField(arrayType: SettingDefinition::class)]
     protected array $definitions = [];
 
     public function newDefinition(string $name, SchemaType $type, mixed $default): SettingDefinition
@@ -31,9 +27,10 @@ class SettingsSchema
         return $this->definitions[$name] ?? null;
     }
 
-    public function setDefinition($key, SettingDefinition $def): static
+    public function setDefinition(string $key, SettingDefinition $def): static
     {
         $this->definitions[$key] = $def;
+        return $this;
     }
 
     /**

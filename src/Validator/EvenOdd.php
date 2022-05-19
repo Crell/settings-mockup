@@ -12,13 +12,13 @@ class EvenOdd implements Validator
     public function validate(mixed $value): ?ValidationError
     {
         if ($this->even && $value % 2) {
-            return new class implements ValidationError {
+            return new class($value) implements ValidationError {
                 public function __construct(public readonly int $value) {}
             };
         }
 
         if (!$this->even && !($value % 2)) {
-            return new class implements ValidationError {
+            return new class($value) implements ValidationError {
                 public function __construct(public readonly int $value) {}
             };
         }

@@ -124,6 +124,7 @@ class SettingsSchemaTest extends TestCase
     /**
      * @test-disabled
      */
+    /*
     public function reading_yaml_files_with_serde_works(): void
     {
         $schema = new SettingsSchema();
@@ -135,4 +136,5 @@ class SettingsSchemaTest extends TestCase
         self::assertInstanceOf(TypeValidator::class, $schema->getDefinition('foo.bar.baz')->validators[0]);
         self::assertEquals('not set', $schema->getDefinition('beep.boop')->default);
     }
+    */
 }

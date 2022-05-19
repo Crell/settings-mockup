@@ -45,10 +45,10 @@ class RawYamlFilePass
                 }
             }
 
-            if (isset($form['widget']['class'])) {
+            if (isset($def['widget']['class'])) {
                 $widgetArgs = $def['widget'];
                 unset($widgetArgs['class']);
-                $newDef->widget = new $form['widget']['class'](...$widgetArgs);
+                $newDef->widget = new $def['widget']['class'](...$widgetArgs);
             }
 
             foreach ($def['validators'] ?? [] as $validator) {
