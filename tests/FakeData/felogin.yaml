@@ -55,6 +55,7 @@ styles.content.loginform.replyToEmail:
   form:
     label: Reply to email Address
     description: Reply to address used in the change password emails
+  # Date formats is another possible custom type?
 styles.content.loginform.dateFormat:
   default: 'Y-m-d H:i'
   form:
