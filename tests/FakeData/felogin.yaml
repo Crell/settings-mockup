@@ -141,7 +141,7 @@ styles.content.loginform.forgotLinkHashValidTime:
 styles.content.loginform.newPasswordMinLength:
   type:
     class: Crell\SettingsPrototype\SchemaType\IntType
-    minValue: 6
+    minimum: 6
   default: 6
   form:
     label: Minimum amount of characters, when setting a new password

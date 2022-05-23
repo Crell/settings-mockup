@@ -18,8 +18,8 @@ class IntType implements SchemaType
     use Hydratable;
 
     public function __construct(
-        public ?int $minValue = null,
-        public ?int $maxValue = null,
+        public ?int $minimum = null,
+        public ?int $maximum = null,
         public int $step = 1,
         public ?array $allowedValues = null,
     ) {
@@ -31,11 +31,11 @@ class IntType implements SchemaType
 
         $ret[] = new TypeValidator('int');
 
-        if (!is_null($this->minValue)) {
-            $ret[] = new MinValueValidator($this->minValue);
+        if (!is_null($this->minimum)) {
+            $ret[] = new MinValueValidator($this->minimum);
         }
-        if (!is_null($this->maxValue)) {
-            $ret[] = new MaxValueValidator($this->maxValue);
+        if (!is_null($this->maximum)) {
+            $ret[] = new MaxValueValidator($this->maximum);
         }
         if (!is_null($this->allowedValues)) {
             $ret[] = new AllowedValues($this->allowedValues);
