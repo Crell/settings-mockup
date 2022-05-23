@@ -106,6 +106,6 @@ class AutoinjectTest extends TestCase
         /** @var SettingAwareService $service */
         $service = $this->container->get(SettingAwareService::class);
 
-        self::assertEquals(5, $service->getInjectedFoo());
+        self::assertSame(5, $service->getInjectedFoo());
     }
 }

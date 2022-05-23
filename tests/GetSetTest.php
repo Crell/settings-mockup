@@ -29,7 +29,7 @@ class GetSetTest extends TestCase
 
         $val = $s->get('foo.bar.baz');
 
-        static::assertEquals(3, $val);
+        static::assertSame(3, $val);
     }
 
     /**
@@ -48,7 +48,7 @@ class GetSetTest extends TestCase
 
         $val = $s->get('foo.bar.baz');
 
-        static::assertEquals(5, $val);
+        static::assertSame(5, $val);
     }
 
     /**
@@ -92,13 +92,13 @@ class GetSetTest extends TestCase
 
         $s->setMultiple(2, ['beep.boop' => 'val', 'foo.bar.baz' => 6]);
 
-        self::assertEquals('val', $s->get('beep.boop', 2));
-        self::assertEquals('val', $s->get('beep.boop', 3));
-        self::assertEquals('not set', $s->get('beep.boop', 1));
+        self::assertSame('val', $s->get('beep.boop', 2));
+        self::assertSame('val', $s->get('beep.boop', 3));
+        self::assertSame('not set', $s->get('beep.boop', 1));
 
-        self::assertEquals(6, $s->get('foo.bar.baz', 2));
-        self::assertEquals(5, $s->get('foo.bar.baz', 1));
-        self::assertEquals(6, $s->get('foo.bar.baz', 3));
+        self::assertSame(6, $s->get('foo.bar.baz', 2));
+        self::assertSame(5, $s->get('foo.bar.baz', 1));
+        self::assertSame(6, $s->get('foo.bar.baz', 3));
     }
 
     /**

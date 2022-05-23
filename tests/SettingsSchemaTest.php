@@ -53,8 +53,8 @@ class SettingsSchemaTest extends TestCase
         }
 
         // Now assert various things on $generated as appropriate.
-        $this->assertEquals($schema->getDefinition('foo.bar.baz')->default, $generated->getDefinition('foo.bar.baz')->default);
-        $this->assertEquals($schema->getDefinition('beep.boop')->default, $generated->getDefinition('beep.boop')->default);
+        $this->assertSame($schema->getDefinition('foo.bar.baz')->default, $generated->getDefinition('foo.bar.baz')->default);
+        $this->assertSame($schema->getDefinition('beep.boop')->default, $generated->getDefinition('beep.boop')->default);
     }
 
     /**
@@ -66,8 +66,8 @@ class SettingsSchemaTest extends TestCase
 
         $schema->addSchema(new MockSchemaData());
 
-        self::assertEquals(1, $schema->getDefinition('foo.bar.baz')->default);
-        self::assertEquals('not set', $schema->getDefinition('beep.boop')->default);
+        self::assertSame(1, $schema->getDefinition('foo.bar.baz')->default);
+        self::assertSame('not set', $schema->getDefinition('beep.boop')->default);
     }
 
     /**
@@ -80,32 +80,32 @@ class SettingsSchemaTest extends TestCase
         $schema->addSchema(new RawYamlFilePass(__DIR__ . '/FakeData/basic_settings.yaml'));
 
         $def = $schema->getDefinition('foo.bar.baz');
-        self::assertEquals(1, $def->default);
-        self::assertEquals('Foo Bar\'s Baz', $def->form->label);
-        self::assertEquals('Stuff here', $def->form->description);
-        self::assertEquals('', $def->form->help);
-        self::assertEquals('', $def->form->icon);
+        self::assertSame(1, $def->default);
+        self::assertSame('Foo Bar\'s Baz', $def->form->label);
+        self::assertSame('Stuff here', $def->form->description);
+        self::assertSame('', $def->form->help);
+        self::assertSame('', $def->form->icon);
         self::assertCount(2, $def->validators);
         self::assertInstanceOf(TypeValidator::class, $def->validators[0]);
         self::assertInstanceOf(EvenOdd::class, $def->validators[1]);
         self::assertInstanceOf(NumberField::class, $def->widget);
 
         $def = $schema->getDefinition('beep.boop');
-        self::assertEquals('not set', $def->default);
-        self::assertEquals('Beep beep', $def->form->label);
-        self::assertEquals('Roadrunner?', $def->form->description);
-        self::assertEquals('', $def->form->help);
-        self::assertEquals('', $def->form->icon);
+        self::assertSame('not set', $def->default);
+        self::assertSame('Beep beep', $def->form->label);
+        self::assertSame('Roadrunner?', $def->form->description);
+        self::assertSame('', $def->form->help);
+        self::assertSame('', $def->form->icon);
         self::assertCount(1, $def->validators);
         self::assertInstanceOf(TypeValidator::class, $def->validators[0]);
         self::assertInstanceOf(SelectField::class, $def->widget);
 
         $def = $schema->getDefinition('minimalist.definition');
-        self::assertEquals('The least I can do', $def->default);
-        self::assertEquals('', $def->form->label);
-        self::assertEquals('', $def->form->description);
-        self::assertEquals('', $def->form->help);
-        self::assertEquals('', $def->form->icon);
+        self::assertSame('The least I can do', $def->default);
+        self::assertSame('', $def->form->label);
+        self::assertSame('', $def->form->description);
+        self::assertSame('', $def->form->help);
+        self::assertSame('', $def->form->icon);
         self::assertCount(1, $def->validators);
         self::assertInstanceOf(TypeValidator::class, $def->validators[0]);
         self::assertInstanceOf(TextField::class, $def->widget);
@@ -121,25 +121,25 @@ class SettingsSchemaTest extends TestCase
         $schema->addSchema(new RawYamlFilePass(__DIR__ . '/FakeData/felogin.yaml'));
 
         $def = $schema->getDefinition('styles.content.loginform.pid');
-        self::assertEquals('0', $def->default);
-        self::assertEquals('User Storage Page', $def->form->label);
+        self::assertSame('0', $def->default);
+        self::assertSame('User Storage Page', $def->form->label);
         self::assertInstanceOf(TypeValidator::class, $def->validators[0]);
 
         $def = $schema->getDefinition('styles.content.loginform.emailFrom');
-        self::assertEquals('', $def->default);
-        self::assertEquals('Email Sender Address', $def->form->label);
+        self::assertSame('', $def->default);
+        self::assertSame('Email Sender Address', $def->form->label);
         self::assertInstanceOf(TypeValidator::class, $def->validators[0]);
         self::assertInstanceOf(EmailValidator::class, $def->validators[1]);
 
         $def = $schema->getDefinition('styles.content.loginform.redirectPageLogin');
-        self::assertEquals(0, $def->default);
-        self::assertEquals('After Successful Login Redirect to Page', $def->form->label);
+        self::assertSame(0, $def->default);
+        self::assertSame('After Successful Login Redirect to Page', $def->form->label);
         self::assertInstanceOf(TypeValidator::class, $def->validators[0]);
         self::assertInstanceOf(MinValueValidator::class, $def->validators[1]);
 
         $def = $schema->getDefinition('styles.content.loginform.domains');
-        self::assertEquals([], $def->default);
-        self::assertEquals('Allowed Referrer-Redirect-Domains', $def->form->label);
+        self::assertSame([], $def->default);
+        self::assertSame('Allowed Referrer-Redirect-Domains', $def->form->label);
         self::assertInstanceOf(ListTypeValidator::class, $def->validators[0]);
         self::assertInstanceOf(MultivalueTextField::class, $def->widget);
     }
@@ -154,12 +154,12 @@ class SettingsSchemaTest extends TestCase
         $schema->addSchema(new RawYamlFilePass(__DIR__ . '/FakeData/scheduler.yaml'));
 
         $def = $schema->getDefinition('scheduler.maxLifetime');
-        self::assertEquals('1440', $def->default);
-        self::assertEquals('LLL:EXT:scheduler/Resources/Private/Language/locallang_em.xlf:scheduler.config.maxLifetime', $def->form->label);
+        self::assertSame('1440', $def->default);
+        self::assertSame('LLL:EXT:scheduler/Resources/Private/Language/locallang_em.xlf:scheduler.config.maxLifetime', $def->form->label);
         self::assertInstanceOf(TypeValidator::class, $def->validators[0]);
 
         $def = $schema->getDefinition('scheduler.showSampleTasks');
-        self::assertEquals(true, $def->default);
+        self::assertSame(true, $def->default);
         self::assertInstanceOf(TypeValidator::class, $def->validators[0]);
    }
 
@@ -187,10 +187,10 @@ class SettingsSchemaTest extends TestCase
 
         $schema->addSchema(new SerdeYamlFilePass(__DIR__ . '/FakeData/basic_settings_serde.yaml', new SerdeCommon()));
 
-        self::assertEquals(1, $schema->getDefinition('foo.bar.baz')->default);
+        self::assertSame(1, $schema->getDefinition('foo.bar.baz')->default);
         self::assertCount(1, $schema->getDefinition('foo.bar.baz')->validators);
         self::assertInstanceOf(TypeValidator::class, $schema->getDefinition('foo.bar.baz')->validators[0]);
-        self::assertEquals('not set', $schema->getDefinition('beep.boop')->default);
+        self::assertSame('not set', $schema->getDefinition('beep.boop')->default);
     }
     */
 }
