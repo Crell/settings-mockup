@@ -1,0 +1,167 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+properties:
+  styles.content.loginform.pid:
+    type: string
+    description: Define the Storage Folder with the Website User Records, using a comma separated list or single value
+    default: '0'
+    form:
+      label: User Storage Page
+
+  styles.content.loginform.recursive:
+    type:
+      class: Crell\SettingsPrototype\SchemaType\IntType
+      allowedValues: [0, 1, 2, 3, 4, 255]
+    default: 0
+    form:
+      label: Recursive
+      description: If set, also subfolder at configured recursive levels of the User Storage Page will be used
+
+  styles.content.loginform.showForgotPasswordLink:
+    type:
+      class: Crell\SettingsPrototype\SchemaType\BoolType
+    default: false
+    form:
+      label: Display Password Recovery Link
+      description: If set, the section in the template to display the link to the forget password dialogue is visible.
+  styles.content.loginform.showPermaLogin:
+    type:
+      class: Crell\SettingsPrototype\SchemaType\BoolType
+    default: false
+    form:
+      label: Display Remember Login Option
+      description: If set, the section in the template to display the option to remember the login (with a cookie) is visible.
+  styles.content.loginform.showLogoutFormAfterLogin:
+    type:
+      class: Crell\SettingsPrototype\SchemaType\BoolType
+    default: false
+    form:
+      label: Disable redirect after successful login, but display logout-form
+      description: If set, the logout form will be displayed immediately after successful login.
+
+  styles.content.loginform.emailFrom:
+    type:
+      class: Crell\SettingsPrototype\SchemaType\EmailType
+    default: ''
+    form:
+      label: Email Sender Address
+      description: Email address used as sender of the change password emails
+  styles.content.loginform.emailFromName:
+    default: ''
+    form:
+      label: Email Sender Name
+      description: Name used as sender of the change password emails
+  styles.content.loginform.replyToEmail:
+    type:
+      class: Crell\SettingsPrototype\SchemaType\EmailType
+    default: ''
+    form:
+      label: Reply to email Address
+      description: Reply to address used in the change password emails
+    # Date formats is another possible custom type?
+  styles.content.loginform.dateFormat:
+    default: 'Y-m-d H:i'
+    form:
+      label: Date format
+      description: Format for the link is valid until message (forget password email)
+
+  styles.content.loginform.email.layoutRootPath:
+    default: ''
+    form:
+      label: Layout root path
+      description: Path to layout directory used for emails
+  styles.content.loginform.email.templateRootPath:
+    # This could benefit from a PathType to validate the path format.
+    default: 'EXT:felogin/Resources/Private/Email/Templates/'
+    form:
+      label: Template root path
+      description: Path to template directory used for emails
+  styles.content.loginform.email.partialRootPath:
+    default: ''
+    form:
+      label: Partial root path
+      description: Path to partial directory used for emails
+  styles.content.loginform.email.templateName:
+    default: 'PasswordRecovery'
+    form:
+      label: Template name for emails
+      description: Plaintext emails get the .txt file extension.
+
+  # This is a string currently; changed here to a list to demonstrate what we can do now.
+  # @todo Come back to this.
+  styles.content.loginform.redirectMode:
+    default: 'PasswordRecover'
+    form:
+      label: Redirect Mode
+      description: 'Comma separated list of redirect modes. Possible values: groupLogin, userLogin, login, getpost, referer, refererDomains, loginError, logout'
+  styles.content.loginform.redirectFirstMethod:
+    type:
+      class: Crell\SettingsPrototype\SchemaType\BoolType
+    default: false
+    form:
+      label: Use First Supported Mode from Selection
+      description: If set the first method from redirectMode which is possible will be used
+
+  # These suggest a use for a PageIdType, which will also validate that the ID exists in the DB.
+  styles.content.loginform.redirectPageLogin:
+    type:
+      class: Crell\SettingsPrototype\SchemaType\PositiveIntType
+    default: 0
+    form:
+      label: After Successful Login Redirect to Page
+      description: Page id to redirect to after Login
+  styles.content.loginform.redirectPageLoginError:
+    type:
+      class: Crell\SettingsPrototype\SchemaType\PositiveIntType
+    default: 0
+    form:
+      label: After Failed Login Redirect to Page
+      description: Page id to redirect to after Login Error
+  styles.content.loginform.redirectPageLogout:
+    type:
+      class: Crell\SettingsPrototype\SchemaType\PositiveIntType
+    default: 0
+    form:
+      label: After Logout Redirect to Page
+      description: Page id to redirect to after Logout
+
+  styles.content.loginform.redirectDisable:
+    type:
+      class: Crell\SettingsPrototype\SchemaType\BoolType
+    default: false
+    form:
+      label: Disable Redirect
+      description: If set redirecting is disabled
+
+  styles.content.loginform.forgotLinkHashValidTime:
+    type:
+      class: Crell\SettingsPrototype\SchemaType\PositiveIntType
+    default: 12
+    form:
+      label: Time in hours how long the link for forget password is valid
+      description: How many hours the link for forget password is valid
+
+  styles.content.loginform.newPasswordMinLength:
+    type:
+      class: Crell\SettingsPrototype\SchemaType\IntType
+      minValue: 6
+    default: 6
+    form:
+      label: Minimum amount of characters, when setting a new password
+      description: Minimum length of the new password a user sets
+
+  # Converted into a sequence rather than a CSV
+  styles.content.loginform.domains:
+    type:
+      class: Crell\SettingsPrototype\SchemaType\SequenceType
+    default: []
+    form:
+      label: Allowed Referrer-Redirect-Domains
+      description: Comma-separated list of domains which are allowed for the referrer redirect mode
+
+  styles.content.loginform.exposeNonexistentUserInForgotPasswordDialog:
+    type:
+      class: Crell\SettingsPrototype\SchemaType\BoolType
+    default: false
+    form:
+      label: Expose existing users
+      description: Expose the information on whether or not the account for which a new password was requested exists. By default, that information is not disclosed for privacy reasons.

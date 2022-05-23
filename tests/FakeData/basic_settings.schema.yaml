@@ -1,0 +1,9 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+properties:
+    foo.bar.baz:
+      "description": "Foo Bar's Baz",
+      "type": "integer"
+    beep.boop:
+      type: "string",
+      description: "Beep beep"
+      enum: ['A', 'B', 'C']
