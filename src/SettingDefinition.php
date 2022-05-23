@@ -37,13 +37,13 @@ class SettingDefinition
 
     public function __construct(
         public string $name,
-        public SchemaType $type,
+        SchemaType $type,
         public mixed $default,
     ) {
         $this->form = new FormField();
         // The main purpose of a type class is to provide a default widget
         // and validators.  These can both be overridden/added to, though.
         $this->widget = $type->defaultWidget();
-        $this->validators = $this->type->defaultValidators();
+        $this->validators = $type->defaultValidators();
     }
 }
