@@ -142,8 +142,26 @@ class SettingsSchemaTest extends TestCase
         self::assertEquals('Allowed Referrer-Redirect-Domains', $def->form->label);
         self::assertInstanceOf(ListTypeValidator::class, $def->validators[0]);
         self::assertInstanceOf(MultivalueTextField::class, $def->widget);
-
     }
+
+    /**
+     * @test
+     */
+    public function scheduler_sample_parses_correctly(): void
+    {
+        $schema = new SettingsSchema();
+
+        $schema->addSchema(new RawYamlFilePass(__DIR__ . '/FakeData/scheduler.yaml'));
+
+        $def = $schema->getDefinition('scheduler.maxLifetime');
+        self::assertEquals('1440', $def->default);
+        self::assertEquals('LLL:EXT:scheduler/Resources/Private/Language/locallang_em.xlf:scheduler.config.maxLifetime', $def->form->label);
+        self::assertInstanceOf(TypeValidator::class, $def->validators[0]);
+
+        $def = $schema->getDefinition('scheduler.showSampleTasks');
+        self::assertEquals(true, $def->default);
+        self::assertInstanceOf(TypeValidator::class, $def->validators[0]);
+   }
 
     /**
      * @test
