@@ -39,6 +39,12 @@ class Settings
             ?? throw SettingNotFound::create($key, $pageId);
     }
 
+    /**
+     * Return a value for the specified key from the install-wide pool.
+     *
+     * @param string $key
+     * @return mixed
+     */
     protected function getSettingFromGlobal(string $key): mixed
     {
         return null;
