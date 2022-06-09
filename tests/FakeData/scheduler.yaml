@@ -1,15 +1,16 @@
-# Why the heck is this a string?
-scheduler.maxLifetime:
-  type:
-    class: Crell\SettingsPrototype\SchemaType\StringType
-  default: '1440'
-  form:
-    label: LLL:EXT:scheduler/Resources/Private/Language/locallang_em.xlf:scheduler.config.maxLifetime
+properties:
+  # Why the heck is this a string?
+  scheduler.maxLifetime:
+    type:
+      class: Crell\SettingsPrototype\SchemaType\StringType
+    default: '1440'
+    form:
+      label: LLL:EXT:scheduler/Resources/Private/Language/locallang_em.xlf:scheduler.config.maxLifetime
 
-scheduler.showSampleTasks:
-  type:
-    class: Crell\SettingsPrototype\SchemaType\BoolType
-  default: true
-  form:
-    label: LLL:EXT:scheduler/Resources/Private/Language/locallang_em.xlf:scheduler.config.showSampleTasks
+  scheduler.showSampleTasks:
+    type:
+      class: Crell\SettingsPrototype\SchemaType\BoolType
+    default: true
+    form:
+      label: LLL:EXT:scheduler/Resources/Private/Language/locallang_em.xlf:scheduler.config.showSampleTasks
 

@@ -17,6 +17,11 @@ class SettingsSchema
      */
     protected array $definitions = [];
 
+    /**
+     * @var CategoryDefinition[]
+     */
+    protected array $categories = [];
+
     public function newDefinition(string $name, SchemaType $type, mixed $default): SettingDefinition
     {
         return $this->definitions[$name] = new SettingDefinition($name, $type, $default);
@@ -30,6 +35,22 @@ class SettingsSchema
     public function setDefinition(string $key, SettingDefinition $def): static
     {
         $this->definitions[$key] = $def;
+        return $this;
+    }
+
+    public function newCategory(string $id, string $label): CategoryDefinition
+    {
+        return $this->categories[$id] = new CategoryDefinition($id, $label);
+    }
+
+    public function getCategory(string $id): ?CategoryDefinition
+    {
+        return $this->categories[$id] ?? null;
+    }
+
+    public function setCategory(string $id, CategoryDefinition $def): static
+    {
+        $this->categories[$id] = $def;
         return $this;
     }
 
@@ -47,7 +68,6 @@ class SettingsSchema
     public function addSchema(callable $pass): static
     {
         $pass($this);
-
         return $this;
     }
 

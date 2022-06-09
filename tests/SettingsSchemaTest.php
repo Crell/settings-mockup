@@ -79,7 +79,20 @@ class SettingsSchemaTest extends TestCase
 
         $schema->addSchema(new RawYamlFilePass(__DIR__ . '/FakeData/basic_settings.yaml'));
 
+        $cat = $schema->getCategory('cat1');
+        self::assertSame('Category 1', $cat->label);
+        self::assertSame(1, $cat->order);
+
+        $cat = $schema->getCategory('cat1/cat2');
+        self::assertSame('Category 2', $cat->label);
+        self::assertSame(0, $cat->order);
+
+        $cat = $schema->getCategory('cat3');
+        self::assertSame('Meow', $cat->label);
+        self::assertSame(2, $cat->order);
+
         $def = $schema->getDefinition('foo.bar.baz');
+        self::assertSame('cat1', $def->categoryId);
         self::assertSame(1, $def->default);
         self::assertSame('Foo Bar\'s Baz', $def->form->label);
         self::assertSame('Stuff here', $def->form->description);
@@ -91,6 +104,7 @@ class SettingsSchemaTest extends TestCase
         self::assertInstanceOf(NumberField::class, $def->widget);
 
         $def = $schema->getDefinition('beep.boop');
+        self::assertSame('cat1/cat2', $def->categoryId);
         self::assertSame('not set', $def->default);
         self::assertSame('Beep beep', $def->form->label);
         self::assertSame('Roadrunner?', $def->form->description);
@@ -101,6 +115,7 @@ class SettingsSchemaTest extends TestCase
         self::assertInstanceOf(SelectField::class, $def->widget);
 
         $def = $schema->getDefinition('minimalist.definition');
+        self::assertSame('', $def->categoryId);
         self::assertSame('The least I can do', $def->default);
         self::assertSame('', $def->form->label);
         self::assertSame('', $def->form->description);

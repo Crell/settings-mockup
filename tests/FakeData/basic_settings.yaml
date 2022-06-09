@@ -1,25 +1,38 @@
-'foo.bar.baz':
-  type:
-    class: Crell\SettingsPrototype\SchemaType\IntType
-  default: 1
-  form:
-    label: Foo Bar's Baz
-    description: Stuff here
-  validators:
-    - { class: Crell\SettingsPrototype\Validator\EvenOdd, even: false }
-'beep.boop':
-  type:
-    class: Crell\SettingsPrototype\SchemaType\StringType
-  default: 'not set'
-  form:
-    label: Beep beep
-    description: Roadrunner?
-  widget:
-    class: Crell\SettingsPrototype\Widgets\SelectField
-    values:
-      a: A
-      b: B
-      c: C
+categories:
+  cat1:
+    label: Category 1
+    order: 1
+  cat1/cat2:
+    label: Category 2
+  cat3:
+    label: Meow
+    order: 2
 
-minimalist.definition:
-  default: 'The least I can do'
+properties:
+  'foo.bar.baz':
+    category: cat1
+    type:
+      class: Crell\SettingsPrototype\SchemaType\IntType
+    default: 1
+    form:
+      label: Foo Bar's Baz
+      description: Stuff here
+    validators:
+      - { class: Crell\SettingsPrototype\Validator\EvenOdd, even: false }
+  'beep.boop':
+    category: cat1/cat2
+    type:
+      class: Crell\SettingsPrototype\SchemaType\StringType
+    default: 'not set'
+    form:
+      label: Beep beep
+      description: Roadrunner?
+    widget:
+      class: Crell\SettingsPrototype\Widgets\SelectField
+      values:
+        a: A
+        b: B
+        c: C
+
+  minimalist.definition:
+    default: 'The least I can do'

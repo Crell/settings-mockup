@@ -25,10 +25,7 @@ class SettingDefinition
 
     public Widget $widget;
 
-    // A /-delimited string.
-//    public string $category = '';
-
-//    public array $tags = [];
+    public string $categoryId = '';
 
     /**
      * @var Validator[]
